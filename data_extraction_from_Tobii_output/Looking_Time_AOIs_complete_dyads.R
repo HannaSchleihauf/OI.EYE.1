@@ -1,5 +1,5 @@
 ## Project Name: OI_EYE_1
-## Data extraction from Tobii
+## Data extraction from Tobii Studio
 ## Extract Looking time for AOIs from complete dyads (child and parent were tested)
 
 ## Written by: Hanna Schleihauf

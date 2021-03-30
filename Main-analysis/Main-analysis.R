@@ -9,6 +9,7 @@
 
 ## Coding information: child.adult: 1 = child, 2 = adult
 
+# load necessary functions and packages
 library("parameters")
 library("lme4")
 library("glmmTMB")
@@ -53,7 +54,8 @@ range(t.data$t.aoi.prop)
 xx <- t.data$aoi.prop - t.data$t.aoi.prop
 head(round(xx, 5))
 
-# preliminary analysis to see whether trial number per block has an effect on the
+# Preliminary analysis ----------------------------------------------------
+# Preliminary analysis to see whether trial number per block has an effect on the
 # relative looking time to one of the actions
 contr <-
   glmmTMBControl(
@@ -88,7 +90,7 @@ xx <- round(pre.stab$summary[, -1], 3)
 m.stab.plot(pre.stab$summary[, -1])
 xx ## model is stable
 
-# significance tests
+# significance tests. Since we only have one predictor is is equivalent to the full-null model test. 
 tests.pre <- drop1p(model.res = pre, para = T, data = t.data, contr = contr, n.cores = c("all-1"), to.del = NULL, return.model.results = F)
 tests.pre$drop1.res
 plot(effect("z.trial", pre))
@@ -96,7 +98,7 @@ plot(effect("z.trial", pre))
 summary(pre)
 round(summary(pre)$coefficients$cond, 3)
 
-## bootstraps for plotting
+# bootstraps for plotting
 boot.plot.trial <-
   boot.glmmTMB(
     model.res = pre, data = t.data, excl.non.conv = T, nboots = 1000, para = T,
@@ -162,7 +164,7 @@ data = t.data, family = beta_family(link = "logit"), control = contr, weights = 
 tests2 <- drop1p(model.res = full2, para = T, data = t.data, contr = contr, n.cores = c("all-1"), to.del = NULL, return.model.results = F)
 tests2$drop1.res
 
-## bootstraps for full model
+# bootstraps for full model
 boot.plot.full1 <- boot.glmmTMB(
   model.res = full1, data = t.data, excl.non.conv = T,
   nboots = 1000, para = T, level = 0.95,
